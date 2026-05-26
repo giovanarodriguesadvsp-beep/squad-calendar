@@ -1523,7 +1523,8 @@ async function confirmDeleteHoliday(){
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
-window.onload = function() {
+// Direct init at end of script
+{
   // Close modal on Escape
   document.addEventListener('keydown', e => {
     if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'));
@@ -1544,7 +1545,12 @@ window.onload = function() {
   renderCal();
   renderAbsGrid();
   loadAll();
-};
+  // Debug: force month label if still showing dash
+  setTimeout(()=>{
+    const lbl = document.getElementById('cal-month-label');
+    if(lbl && lbl.textContent === '—') { renderCal(); }
+  }, 500);
+}
 
 </script>
 </body>
