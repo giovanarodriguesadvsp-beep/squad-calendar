@@ -1464,7 +1464,7 @@ function renderAbsGrid(){
         <span class="abs-person-team ${m.team}">${TEAM_LABELS[m.team]}</span>
       </div>
       <div class="abs-entries" id="abs-entries-${m.id}">${entriesHtml}</div>
-      ${m.archived?'':'<button class="abs-add-btn" onclick="openNewAbsence(''+m.id+'')">＋ Registrar ausência</button>'}`;
+      ${m.archived ? '' : `<button class="abs-add-btn" onclick="openNewAbsence('${m.id}')">＋ Registrar ausência</button>`}`;
     grid.appendChild(card);
   });
 }
