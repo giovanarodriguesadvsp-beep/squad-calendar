@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Squad Calendar</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
@@ -202,6 +201,7 @@ body {
   display: flex;
   gap: 16px;
   align-items: flex-start;
+  padding-bottom: 24px;
 }
 .cal-sidebar {
   width: 140px;
@@ -271,36 +271,36 @@ body {
 .cal-weekdays {
   display: grid; grid-template-columns: repeat(7, 1fr);
   gap: 0;
-  background: #eef2fb;
-  border: 1px solid #d4daea;
-  border-bottom: none;
+  background: #dde6f5;
+  border: 1.5px solid #b8c4d8;
+  border-bottom: 1px solid #b8c4d8;
   border-radius: var(--radius-sm) var(--radius-sm) 0 0;
   margin-bottom: 0;
   overflow: hidden;
 }
 .cal-wday {
   text-align: center; font-size: 10px; font-weight: 700;
-  color: #6b7fab; text-transform: uppercase;
+  color: #4a5a80; text-transform: uppercase;
   letter-spacing: 0.08em; padding: 8px 0;
-  border-right: 1px solid #d4daea;
+  border-right: 1px solid #c8d4e8;
 }
 .cal-wday:last-child { border-right: none; }
-.cal-wday.weekend { color: #93c5fd; }
+.cal-wday.weekend { color: #6090d0; }
 
 .cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 0;
-  border: 1px solid #d4daea;
+  border: 1.5px solid #b8c4d8;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(30,64,175,0.06);
+  box-shadow: 0 2px 12px rgba(30,64,175,0.10);
 }
 
 .cal-cell {
   background: #ffffff;
-  border-right: 1px solid #d4daea;
-  border-bottom: 1px solid #d4daea;
+  border-right: 1px solid #c8d4e8;
+  border-bottom: 1px solid #c8d4e8;
   border-radius: 0;
   min-height: 108px;
   padding: 7px 8px 6px;
@@ -644,8 +644,8 @@ button.type-opt { font-family: 'Inter', sans-serif; cursor: pointer; }
         </div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
-        <button class="btn-new" onclick="openNewEvent(null)">＋ Cerimônia</button>
-        <button class="btn-new" style="background:#f4f7ff;color:var(--text2);border:1px solid var(--border2);" onclick="openHolidayModal(null)">🚫 Marcar dia</button>
+        <button class="btn-new" onclick="event.stopPropagation();openNewEvent(null)">＋ Cerimônia</button>
+        <button class="btn-new" style="background:#f4f7ff;color:var(--text2);border:1px solid var(--border2);" onclick="event.stopPropagation();openHolidayModal(null)">🚫 Marcar dia</button>
       </div>
     </div>
 
@@ -712,8 +712,8 @@ button.type-opt { font-family: 'Inter', sans-serif; cursor: pointer; }
       <div class="abs-title">Férias & Ausências</div>
       <div style="display:flex;gap:8px;align-items:center;">
         <button class="btn-new" style="background:#f4f7ff;color:#64748b;border:1px solid #c0cce6;display:none;" id="btn-show-archived" onclick="toggleArchived()">📦 Arquivados</button>
-        <button class="btn-new" onclick="openAddMember()">＋ Pessoa</button>
-        <button class="btn-new" style="background:#f4f7ff;color:#2563eb;border:1px solid #c0cce6;" onclick="openNewAbsence(null)">＋ Ausência</button>
+        <button class="btn-new" onclick="event.stopPropagation();openAddMember()">＋ Pessoa</button>
+        <button class="btn-new" style="background:#f4f7ff;color:#2563eb;border:1px solid #c0cce6;" onclick="event.stopPropagation();openNewAbsence(null)">＋ Ausência</button>
       </div>
     </div>
 
@@ -795,15 +795,15 @@ button.type-opt { font-family: 'Inter', sans-serif; cursor: pointer; }
     <div id="event-confirm-box" class="confirm-box">
       <p>⚠️ Remover esta cerimônia?</p>
       <div class="confirm-box-btns">
-        <button class="btn-cancel" onclick="hideEventConfirm()">Cancelar</button>
-        <button class="btn-danger" onclick="confirmDeleteEvent()">Sim, remover</button>
+        <button class="btn-cancel" onclick="event.stopPropagation();hideEventConfirm()">Cancelar</button>
+        <button class="btn-danger" onclick="event.stopPropagation();confirmDeleteEvent()">Sim, remover</button>
       </div>
     </div>
 
     <div class="modal-actions">
-      <button class="btn-danger" id="btn-del-event" style="display:none" onclick="showEventConfirm()">Remover</button>
-      <button class="btn-cancel" onclick="closeModal('modal-event')">Cancelar</button>
-      <button class="btn-primary" onclick="saveEvent()">Salvar</button>
+      <button class="btn-danger" id="btn-del-event" style="display:none" onclick="event.stopPropagation();showEventConfirm()">Remover</button>
+      <button class="btn-cancel" onclick="event.stopPropagation();closeModal('modal-event')">Cancelar</button>
+      <button class="btn-primary" onclick="event.stopPropagation();saveEvent()">Salvar</button>
     </div>
   </div>
 </div>
@@ -814,9 +814,9 @@ button.type-opt { font-family: 'Inter', sans-serif; cursor: pointer; }
     <div class="modal-title" id="modal-day-title"></div>
     <div class="detail-events" id="modal-day-events"></div>
     <div class="modal-actions">
-      <button class="btn-primary" onclick="openNewEvent(currentDetailDate)">＋ Cerimônia</button>
-      <button class="btn-mark-holiday" style="margin-right:auto;" onclick="openHolidayFromDay()">🚫 Marcar dia</button>
-      <button class="btn-cancel" onclick="closeModal('modal-day')">Fechar</button>
+      <button class="btn-primary" onclick="event.stopPropagation();openNewEvent(currentDetailDate)">＋ Cerimônia</button>
+      <button class="btn-mark-holiday" style="margin-right:auto;" onclick="event.stopPropagation();openHolidayFromDay()">🚫 Marcar dia</button>
+      <button class="btn-cancel" onclick="event.stopPropagation();closeModal('modal-day')">Fechar</button>
     </div>
   </div>
 </div>
@@ -846,7 +846,7 @@ button.type-opt { font-family: 'Inter', sans-serif; cursor: pointer; }
     <div id="member-confirm-box" class="confirm-box">
       <p id="member-confirm-msg">⚠️ Confirmar ação?</p>
       <div class="confirm-box-btns">
-        <button class="btn-cancel" onclick="hideMemberConfirm()">Cancelar</button>
+        <button class="btn-cancel" onclick="event.stopPropagation();hideMemberConfirm()">Cancelar</button>
         <button class="btn-danger" id="member-confirm-btn" onclick="">Confirmar</button>
       </div>
     </div>
@@ -897,15 +897,15 @@ button.type-opt { font-family: 'Inter', sans-serif; cursor: pointer; }
     <div id="abs-confirm-box" class="confirm-box">
       <p>⚠️ Remover esta ausência?</p>
       <div class="confirm-box-btns">
-        <button class="btn-cancel" onclick="hideAbsConfirm()">Cancelar</button>
-        <button class="btn-danger" onclick="confirmDeleteAbs()">Sim, remover</button>
+        <button class="btn-cancel" onclick="event.stopPropagation();hideAbsConfirm()">Cancelar</button>
+        <button class="btn-danger" onclick="event.stopPropagation();confirmDeleteAbs()">Sim, remover</button>
       </div>
     </div>
 
     <div class="modal-actions">
-      <button class="btn-danger" id="btn-del-abs" style="display:none" onclick="showAbsConfirm()">Remover</button>
-      <button class="btn-cancel" onclick="closeModal('modal-abs')">Cancelar</button>
-      <button class="btn-primary" onclick="saveAbsence()">Salvar</button>
+      <button class="btn-danger" id="btn-del-abs" style="display:none" onclick="event.stopPropagation();showAbsConfirm()">Remover</button>
+      <button class="btn-cancel" onclick="event.stopPropagation();closeModal('modal-abs')">Cancelar</button>
+      <button class="btn-primary" onclick="event.stopPropagation();saveAbsence()">Salvar</button>
     </div>
   </div>
 </div>
@@ -939,15 +939,15 @@ button.type-opt { font-family: 'Inter', sans-serif; cursor: pointer; }
     <div id="holiday-confirm-box" class="confirm-box">
       <p>⚠️ Remover esta marcação?</p>
       <div class="confirm-box-btns">
-        <button class="btn-cancel" onclick="hideHolidayConfirm()">Cancelar</button>
-        <button class="btn-danger" onclick="confirmDeleteHoliday()">Sim, remover</button>
+        <button class="btn-cancel" onclick="event.stopPropagation();hideHolidayConfirm()">Cancelar</button>
+        <button class="btn-danger" onclick="event.stopPropagation();confirmDeleteHoliday()">Sim, remover</button>
       </div>
     </div>
 
     <div class="modal-actions">
-      <button class="btn-danger" id="btn-del-holiday" style="display:none" onclick="showHolidayConfirm()">Remover</button>
-      <button class="btn-cancel" onclick="closeModal('modal-holiday')">Cancelar</button>
-      <button class="btn-primary" onclick="saveHoliday()">Salvar</button>
+      <button class="btn-danger" id="btn-del-holiday" style="display:none" onclick="event.stopPropagation();showHolidayConfirm()">Remover</button>
+      <button class="btn-cancel" onclick="event.stopPropagation();closeModal('modal-holiday')">Cancelar</button>
+      <button class="btn-primary" onclick="event.stopPropagation();saveHoliday()">Salvar</button>
     </div>
   </div>
 </div>
@@ -962,11 +962,19 @@ button.type-opt { font-family: 'Inter', sans-serif; cursor: pointer; }
   </div>
 </div>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.min.js"></script>
 <script>
 // ── SUPABASE CONFIG ──────────────────────────────────────────────────────────
 const SUPABASE_URL = 'https://yrcbactcwdwebyacsoyk.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyY2JhY3Rjd2R3ZWJ5YWNzb3lrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MTM1ODcsImV4cCI6MjA5NTM4OTU4N30.07ZwQPwVCqAyKMrX2FlPieYXjZg2Xx0-Ol8n94dI7Ww';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let sb;
+try {
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+} catch(e) {
+  console.error('Failed to init Supabase:', e);
+}
 
 // ── CONSTANTS ─────────────────────────────────────────────────────────────────
 const MONTHS_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
@@ -1030,14 +1038,42 @@ async function loadAll(){
       sb.from('absences').select('*'),
       sb.from('holidays').select('*')
     ]);
+
+    if(ev.error || mb.error || ab.error || hd.error){
+      const err = ev.error || mb.error || ab.error || hd.error;
+      console.error('Supabase error:', err);
+      showDbError(err.message);
+      hideLoading(); renderCal(); renderAbsGrid(); return;
+    }
+
     dbEvents   = (ev.data||[]).map(r=>({ id:r.id, type:r.type, name:r.name, team:r.team, date:r.date, start:r.start_time, end:r.end_time, note:r.note }));
     dbMembers  = (mb.data||[]).map(r=>({ id:r.id, name:r.name, role:r.role, team:r.team, archived:r.archived }));
     dbAbsences = (ab.data||[]).map(r=>({ id:r.id, memberId:r.member_id, type:r.type, start:r.start_date, end:r.end_date, note:r.note }));
     dbHolidays = (hd.data||[]).map(r=>({ id:r.id, name:r.name, start:r.start_date, end:r.end_date }));
-  } catch(e){ console.error('Erro ao carregar dados:', e); }
+    hideDbError();
+  } catch(e){
+    console.error('Erro ao carregar dados:', e);
+    showDbError(e.message||'Erro de conexão com o banco de dados.');
+  }
   hideLoading();
   renderCal();
   renderAbsGrid();
+}
+
+function showDbError(msg){
+  let el = document.getElementById('db-error-banner');
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'db-error-banner';
+    el.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#fee2e2;color:#991b1b;padding:10px 20px;font-size:13px;font-family:Inter,sans-serif;font-weight:500;z-index:1000;text-align:center;border-bottom:1px solid #fecaca;';
+    document.body.prepend(el);
+  }
+  el.textContent = '⚠ Erro ao conectar com o banco: ' + msg;
+  el.style.display = 'block';
+}
+function hideDbError(){
+  const el = document.getElementById('db-error-banner');
+  if(el) el.style.display = 'none';
 }
 
 // ── TAB ───────────────────────────────────────────────────────────────────────
@@ -1242,13 +1278,13 @@ function openEditMember(id){
     ?`<button class="btn-new" style="background:#f0fdf4;color:#15803d;border:1px solid #86efac;" onclick="showMemberConfirm('unarchive')">↩️ Reativar</button>
       <button class="btn-danger" onclick="showMemberConfirm('delete')">🗑 Excluir</button>
       <div style="flex:1"></div>
-      <button class="btn-cancel" onclick="closeModal('modal-member')">Cancelar</button>
-      <button class="btn-primary" onclick="saveMember()">Salvar</button>`
+      <button class="btn-cancel" onclick="event.stopPropagation();closeModal('modal-member')">Cancelar</button>
+      <button class="btn-primary" onclick="event.stopPropagation();saveMember()">Salvar</button>`
     :`<button class="btn-danger" style="margin-right:0;" onclick="showMemberConfirm('archive')">📦 Arquivar</button>
       <button class="btn-danger" onclick="showMemberConfirm('delete')">🗑 Excluir</button>
       <div style="flex:1"></div>
-      <button class="btn-cancel" onclick="closeModal('modal-member')">Cancelar</button>
-      <button class="btn-primary" onclick="saveMember()">Salvar</button>`;
+      <button class="btn-cancel" onclick="event.stopPropagation();closeModal('modal-member')">Cancelar</button>
+      <button class="btn-primary" onclick="event.stopPropagation();saveMember()">Salvar</button>`;
   hideMemberConfirm();
   selectedMemberTeam=m.team; selectMemberTeam(m.team);
   document.getElementById('modal-member').classList.add('open');
@@ -1485,11 +1521,31 @@ async function confirmDeleteHoliday(){
 
 // ── MODALS ────────────────────────────────────────────────────────────────────
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open')); });
-document.querySelectorAll('.modal-overlay').forEach(ov=>{ ov.addEventListener('click',e=>{ if(e.target===ov) ov.classList.remove('open'); }); });
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
-loadAll();
+window.onload = function() {
+  // Close modal on Escape
+  document.addEventListener('keydown', e => {
+    if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'));
+  });
+  // Close modal on overlay click
+  document.querySelectorAll('.modal-overlay').forEach(ov => {
+    ov.addEventListener('click', e => { if(e.target===ov) ov.classList.remove('open'); });
+  });
+  // Restore filter chip UI
+  ['evol','b2b2c','b2b','projetos','all'].forEach(f=>{
+    const el=document.getElementById('fc-'+f);
+    if(el) el.classList.add('active-'+f);
+  });
+  ['evol','b2b2c','b2b','projetos'].forEach(f=>{
+    const el=document.getElementById('af-'+f);
+    if(el) el.classList.add('active-'+f);
+  });
+  renderCal();
+  renderAbsGrid();
+  loadAll();
+};
+
 </script>
 </body>
 </html>
